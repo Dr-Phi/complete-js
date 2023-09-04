@@ -6,13 +6,14 @@ function generateNumber() {
 const message = document.querySelector(".message");
 const number = document.querySelector(".number");
 const scoreE = document.querySelector(".score");
+const guessE = document.querySelector(".guess");
 let secret = generateNumber();
 console.log(secret);
 let highscore = 0;
 let score = 20;
 
-document.querySelector(".check").addEventListener("click", () => {
-  const guess = Number(document.querySelector(".guess").value);
+function playRound() {
+  const guess = Number(guessE.value);
   if (!guess) {
     message.textContent = "Write a number in the box.";
     //when player wins
@@ -34,7 +35,13 @@ document.querySelector(".check").addEventListener("click", () => {
     }
     message.textContent = guess < secret ? "Too Low!" : "Too High!";
   }
-});
+}
+
+document.querySelector(".check").addEventListener("click", playRound);
+guessE.addEventListener(
+  "keydown",
+  (even) => even.key === "Enter" && playRound()
+);
 
 document.querySelector(".again").addEventListener("click", () => {
   message.textContent = "Start guessing...";
@@ -43,7 +50,7 @@ document.querySelector(".again").addEventListener("click", () => {
   number.style.width = "15rem";
   document.querySelector("body").style.backgroundColor = "#222";
   score = 20;
-  document.querySelector(".guess").value = "";
+  guessE.value = "";
   secret = generateNumber();
   console.log(secret);
 });
