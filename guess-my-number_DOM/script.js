@@ -14,7 +14,9 @@ let score = 20;
 
 function playRound() {
   const guess = Number(guessE.value);
-  if (!guess) {
+  if (score === 0) {
+    message.textContent = "Game over";
+  } else if (!guess) {
     message.textContent = "Write a number in the box.";
     //when player wins
   } else if (guess === secret) {
@@ -30,9 +32,6 @@ function playRound() {
   } else if (guess !== secret) {
     --score;
     scoreE.textContent = score;
-    if (score === 0) {
-      message.textContent = "Game over";
-    }
     message.textContent = guess < secret ? "Too Low!" : "Too High!";
   }
 }
