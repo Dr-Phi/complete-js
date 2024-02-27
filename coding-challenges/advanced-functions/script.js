@@ -45,8 +45,20 @@ poll.displayResults = function (type = "array") {
 
 // BONUS
 const displayNewResults = poll.displayResults;
+const Data2 = { answers: [1, 5, 3, 9, 6, 1] };
 
-const Data2 = {answers: [1, 5, 3, 9, 6, 1]};
+displayNewResults.call({ answers: [5, 2, 3] });
+displayNewResults.call(Data2, "string");
 
-displayNewResults.call({answers: [5, 2, 3]})
-displayNewResults.call(Data2, 'string')
+// Challenge #2
+
+/* Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the body element is clicked.*/
+
+(function () {
+  const header = document.querySelector("h1");
+  header.style.color = "red";
+
+  document.body.addEventListener("click", () => {
+    header.style.color = header.style.color == "blue" ? "red" : "blue";
+  });
+})();
