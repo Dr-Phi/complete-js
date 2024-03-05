@@ -50,7 +50,7 @@ const containerMovements = document.querySelector('.movements');
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
-const btnClose = document.querySelector('.form__btn--close');
+const btnCloseAcc = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
@@ -203,7 +203,7 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
-btnClose.addEventListener('click', function (e) {
+btnCloseAcc.addEventListener('click', function (e) {
   e.preventDefault();
 
   if (
@@ -229,4 +229,30 @@ btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
+});
+
+// Create Account Functionality
+
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const btnClose = document.querySelector(".close-modal");
+const btnOpenAcc = document.querySelector(".create__button");
+
+function closeModal() {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+}
+
+btnOpenAcc.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+});
+
+btnClose.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (ev) {
+  if (ev.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeModal();
+  }
 });
