@@ -113,16 +113,17 @@ const calcDisplaySummary = function (acc) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-// Creates usernames by using the initials
-const createUsernames = function (accs) {
-  accs.forEach(function (acc) {
-    acc.username = acc.owner
-      .toLowerCase()
-      .split(' ')
-      .map(name => name[0])
-      .join('');
-  });
+function createUsername(acc){
+  acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('');
 };
+
+// Creates usernames by using the initials
+const createUsernames = accs => accs.forEach(createUsername);
+
 createUsernames(accounts);
 
 
@@ -237,6 +238,10 @@ const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnClose = document.querySelector(".close-modal");
 const btnOpenAcc = document.querySelector(".create__button");
+const inputFname = document.querySelector("#fname");
+const inputPin = document.querySelector("#pin");
+const inputConfirm = document.querySelector("#confirm");
+const btnSaveAcc = document.querySelector(".save__btn");
 
 function closeModal() {
   modal.classList.add("hidden");
@@ -256,3 +261,81 @@ document.addEventListener("keydown", function (ev) {
     closeModal();
   }
 });
+
+btnSaveAcc.addEventListener('click', function(e){
+  e.preventDefault();
+  const fName = inputFname.value;
+  console.log(fName)
+  const pin = Number(inputPin.value);
+  const confirm = Number(inputConfirm.value);
+
+  //Validations
+  const insertedContent = document.querySelector(".insertedContent");
+  if(insertedContent) {
+    insertedContent.parentNode.removeChild(insertedContent);
+  }
+  if(accounts.find( acc => acc.owner === fName)){
+    const existHTML= `
+    <div class="insertedContent"> ${fName} already has an account
+    </div>
+    `;
+    inputFname.insertAdjacentHTML('afterend',existHTML);
+  }
+  if(pin !== confirm){
+    const existHTML= `
+    <div class="insertedContent">PIN does not match</div>
+    `;
+    inputConfirm.insertAdjacentHTML('afterend',existHTML);
+  }
+  const validPin = pin.toString()
+  if(validPin.length != 4){
+    const existHTML= `
+    <div class="insertedContent">must have 4 digits</div>
+    `;
+    inputConfirm.insertAdjacentHTML('afterend',existHTML);
+  }
+  if(!accounts.find( acc => acc.owner === fName)&& pin===confirm){
+    const newAccount = {
+      owner: fName,
+      movements: [5000],
+      interestRate: (Math.floor(Math.random() * 41) + 10) /10,
+      pin: confirm,
+    }
+    createUsername(newAccount);
+    accounts.push(newAccount);
+    currentAccount = newAccount;
+    const escapeKeyEvent = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: 27,
+      which: 27,
+  });
+    document.dispatchEvent(escapeKeyEvent);
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    updateUI(currentAccount)
+    showAlert('We have processed your initial deposit of 5000€');
+  }
+
+});
+
+function showAlert(message) {
+  const alertDiv = document.createElement('div');
+  alertDiv.textContent = message;
+  alertDiv.className = 'alert-message';
+  containerMovements.appendChild(alertDiv);
+
+  // fading in
+  setTimeout(function() {
+      alertDiv.style.opacity = '1';
+  }, 100);
+  // Ocultar el mensaje después de 5 segundos
+  setTimeout(function() {
+      alertDiv.style.opacity = '0';
+      setTimeout(function() {
+          alertDiv.remove(); 
+      }, 1000);
+  }, 5000);
+}

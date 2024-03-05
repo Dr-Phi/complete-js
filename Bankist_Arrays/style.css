@@ -33,6 +33,7 @@ nav {
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
+  line-height: 1.6rem;
 }
 
 .logo {
@@ -300,12 +301,12 @@ h2 {
 }
 
 .create__button {
+  /* display: block; */
   border: none;
   background: none;
   font-size: 1.4rem;
   font-weight: 550;
   cursor: pointer;
-  margin-left: -20rem;
 }
 
 /* Classes to create new account */
@@ -322,7 +323,7 @@ h2 {
   width: 40%;
   max-width: 330px;
   background-color: white;
-  padding: 6rem;
+  padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
@@ -358,7 +359,9 @@ h2 {
   border-radius: 5px;
   padding: 3px 9px;
   text-align: center;
-  transform: translate(360%, 30%);
+  position: relative;
+  bottom: 0.1rem;
+  left: 0.1rem;
 }
 
 .create_acc{
@@ -367,8 +370,27 @@ h2 {
   border: none;
   transform: translate(10%, 0%);
   font-size: 1.3rem;
+  background: none;
+  max-width: 70%;
 }
 
 .create__input{
   margin-bottom: 0.9rem;
+}
+
+.insertedContent{
+  font-size: 1rem;
+  color: #e52a5a;
+}
+
+.alert-message {
+  background-color: yellow;
+  position: relative;
+  top: 5rem;
+  max-width: fit-content;
+  left: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }

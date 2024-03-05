@@ -17,8 +17,12 @@
   <body>
     <!-- TOP NAVIGATION -->
     <nav>
-      <p class="welcome">Log in to get started</p>
-      <button class="create__button">Create Account</button>
+      <div class="welcome">
+        <p>Log in to get started</p><br>or
+        <button class="create__button">Create Account</button>
+      </div>
+      
+      
       <img src="logo.png" alt="Logo" class="logo" />
       <form class="login">
         <input
@@ -40,14 +44,16 @@
     <!-- CREATE ACCOUNT -->
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
-      <h1>Open a new account</h1>
+      <h2>Open a new account</h2>
       <form class="create_acc">
         <label for="fname">Full Name:</label><br>
         <input type="text" id="fname" class="create__input " /><br>
         <label for="pin" >PIN (4 digits):</label><br>
-        <input type="number" id="pin" class="create__input " /><br>
+        <input type="password"
+        maxlength="4" id="pin" class="create__input " /><br>
         <label for="confirm">Confirm PIN:</label><br>
-        <input type="number" id="confirm" class="create__input " /><br>
+        <input type="password"
+        maxlength="4" id="confirm" class="create__input " /><br>
         <button class="save__btn">&rarr;</button>
       </form>
     </div>
