@@ -1,1 +1,15 @@
 **/final/
+
+# dependencies
+node_modules/
+yarn.lock
+package-lock.json
+
+#  files generated during the build process
+dist/
+build/
+*.exe
+*.o
+.parcel-cache
+
+recipes_app/starter
