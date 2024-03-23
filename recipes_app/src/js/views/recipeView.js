@@ -1,10 +1,13 @@
 import icons from 'url:../../img/icons.svg';
 import {Fraction} from "fractional";
-console.log(Fraction);
 
 class RecipeView{
   #parentElement = document.querySelector('.recipe');
   #data;
+
+  #clear(){
+    this.#parentElement.innerHTML = "";
+  }
 
   render(data){
     this.#data = data;
@@ -13,21 +16,11 @@ class RecipeView{
     this.#parentElement.insertAdjacentHTML('afterbegin', markup)
   }
 
-  renderSpinner = function(){
-    const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="${icons}#icon-loader"></use>
-      </svg>
-    </div>
-    `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-  };
-
-  #clear(){
-    this.#parentElement.innerHTML = "";
+  addHandlerRender(handler){
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
+
+
 
   #generateMarkup(){
     return `
@@ -121,6 +114,18 @@ class RecipeView{
   </li>
   `;
   }
+
+  renderSpinner = function(){
+    const markup = `
+    <div class="spinner">
+      <svg>
+        <use href="${icons}#icon-loader"></use>
+      </svg>
+    </div>
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  };
 
 }
 
