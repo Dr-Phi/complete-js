@@ -9,9 +9,11 @@ class ResultsView extends View {
   _generateMarkup() {
     // qr stands for queryResult
     return this._data.map(qr =>{
+      const segments = window.location.href.split("/")
+      const id = segments[segments.length - 1];
       return `
       <li class="preview">
-      <a class="preview__link" href="${qr.id}">
+      <a class="preview__link ${qr.id === id ? 'preview__link--active':''}" href="${qr.id}">
         <figure class="preview__fig">
           <img src="${qr.image}" alt="${qr.title}" />
         </figure>
@@ -23,8 +25,9 @@ class ResultsView extends View {
     </li>
     `;
     }).join('');
-
   }
+
+
 
 }
 
